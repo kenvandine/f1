@@ -1,7 +1,7 @@
 class_name Main
 extends Control
 
-onready var race_car_buttons = [
+@onready var race_car_buttons = [
 	$Container/CarContainer/GreenButton,
 	$Container/CarContainer/OrangeButton,
 	$Container/CarContainer/RedButton,
@@ -9,7 +9,7 @@ onready var race_car_buttons = [
 ]
 var selected_race_car_idx = null
 
-onready var circuit_buttons = [
+@onready var circuit_buttons = [
 	$Container/CircuitContainer/ChinaButton,
 	$Container/CircuitContainer/PolandButton,
 	$Container/CircuitContainer/MexicoButton,
@@ -17,14 +17,14 @@ onready var circuit_buttons = [
 ]
 var selected_cicruit_idx = null
 
-onready var mode_buttons = [
+@onready var mode_buttons = [
 	$Container/ModeContainer/TimeButton,
 	$Container/ModeContainer/RacingButton,
 	$Container/ModeContainer/MultiplayerButton
 ]
 var selected_mode_idx = null
 
-onready var root := get_tree()
+@onready var root := get_tree()
 var loaded_curcuit_scene: PackedScene = null
 
 func _ready():
@@ -82,11 +82,9 @@ func _on_mode_button_pressed(selected: bool, idx: int):
 			Global.Mode.TIME, Global.Mode.RACING:
 				_set_mode_buttons_disabled()
 				Global.game_play_mode = idx
-#				self.root.call_deferred("change_scene_to", curcuit_scene)
-				var err := self.root.change_scene_to(self.loaded_curcuit_scene)
-				assert(err == OK, "node.change_scene_to error %d" % err)
+				get_tree().change_scene_to_packed(self.loaded_curcuit_scene)
 			Global.Mode.MULTIPLAYER:
-				print_debug("MULTIPLAYER not implemented, yet")
+				print("MULTIPLAYER not implemented, yet")
 
 func _set_mode_buttons_disabled():
 	for btn in self.mode_buttons:
@@ -106,7 +104,6 @@ func _try_load_circuit():
 	if circuit == null:
 		return
 	self.loaded_curcuit_scene = _load_circuit()
-	assert(self.loaded_curcuit_scene != null, "circuit scene is not loaded")
 	_set_mode_buttons_visible()
 
 
@@ -117,14 +114,13 @@ func _load_circuit() -> PackedScene:
 	_set_race_car_buttons_disabled()
 	_set_circuit_buttons_disabled()
 
-	var loader := ResourceLoader.load_interactive(Global.CIRCUITS[self.selected_cicruit_idx], "PackedScene")
+	var loader := ResourceLoader.load_threaded_get(Global.CIRCUITS[self.selected_cicruit_idx])
 	self.circuit_buttons[self.selected_cicruit_idx].set_max(loader.get_stage_count())
-	while scene == null:
-		var err := loader.poll()
-		if err == ERR_FILE_EOF:
-			self.circuit_buttons[self.selected_cicruit_idx].set_progress(loader.get_stage_count())
-			scene = loader.get_resource() as PackedScene
-			Global.CIRCUITS_CACHE[self.selected_cicruit_idx] = scene
-		assert(err == OK || err == ERR_FILE_EOF, "loader.poll error %d" % err)
+	while loader.get_status(true) != ResourceLoader.THREAD_LOAD_LOADED:
 		self.circuit_buttons[self.selected_cicruit_idx].set_progress(loader.get_stage())
+		await get_tree().create_timer(0.1).timeout
+
+	self.circuit_buttons[self.selected_cicruit_idx].set_progress(loader.get_stage_count())
+	scene = loader.get_resource()
+	Global.CIRCUITS_CACHE[self.selected_cicruit_idx] = scene
 	return scene

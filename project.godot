@@ -6,7 +6,7 @@
 ;   [section] ; section goes between []
 ;   param=value ; assign values to parameters
 
-config_version=4
+config_version=5
 
 _global_script_classes=[ {
 "base": "TextureButton",
@@ -34,7 +34,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://ui/camera_button.gd"
 }, {
-"base": "Camera",
+"base": "Camera3D",
 "class": "ChaseCamera",
 "language": "GDScript",
 "path": "res://cameras/chase_camera.gd"
@@ -44,7 +44,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://circuits/china_circuit.gd"
 }, {
-"base": "Spatial",
+"base": "Node3D",
 "class": "Circuit",
 "language": "GDScript",
 "path": "res://circuits/circuit.gd"
@@ -54,7 +54,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://ui/circuit_control.gd"
 }, {
-"base": "MeshInstance",
+"base": "MeshInstance3D",
 "class": "Forest",
 "language": "GDScript",
 "path": "res://circuits/forest.gd"
@@ -89,12 +89,12 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://circuits/poland_circuit.gd"
 }, {
-"base": "KinematicBody",
+"base": "CharacterBody3D",
 "class": "RaceCar",
 "language": "GDScript",
 "path": "res://race_cars/race_car.gd"
 }, {
-"base": "Area",
+"base": "Area3D",
 "class": "RoadStart",
 "language": "GDScript",
 "path": "res://circuits/road_start.gd"
@@ -114,17 +114,17 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://ui/stats_popup.gd"
 }, {
-"base": "Spatial",
+"base": "Node3D",
 "class": "TestCircuit1",
 "language": "GDScript",
 "path": "res://tests/test_circuit1.gd"
 }, {
-"base": "Spatial",
+"base": "Node3D",
 "class": "TestDrive",
 "language": "GDScript",
 "path": "res://tests/test_drive.gd"
 }, {
-"base": "Camera",
+"base": "Camera3D",
 "class": "ZoomCamera",
 "language": "GDScript",
 "path": "res://cameras/zoom_camera.gd"
@@ -181,7 +181,7 @@ formats/zstd/compression_level=5
 
 window/size/width=1080
 window/dpi/allow_hidpi=true
-window/vsync/use_vsync=false
+window/vsync/vsync_mode=0
 window/stretch/mode="2d"
 window/stretch/aspect="expand"
 
@@ -239,16 +239,5 @@ limits/command_queue/multithreading_queue_size_kb=512
 
 [rendering]
 
-quality/driver/fallback_to_gles2=true
-vram_compression/import_etc=true
-quality/reflections/high_quality_ggx.mobile=true
-gles3/shaders/shader_compilation_mode=2
-gles3/shaders/shader_compilation_mode.mobile=2
-gles3/shaders/shader_compilation_mode.web=2
-gles3/shaders/max_simultaneous_compiles.mobile=2
-gles3/shaders/max_simultaneous_compiles.web=2
-gles3/shaders/shader_cache_size_mb.mobile=256
-gles3/shaders/shader_cache_size_mb.web=256
-quality/lightmapping/use_bicubic_sampling.mobile=true
-quality/depth/hdr.mobile=true
-environment/default_environment="res://default_env.tres"
+textures/vram_compression/import_etc2_astc=true
+environment/defaults/default_environment="res://default_env.tres"

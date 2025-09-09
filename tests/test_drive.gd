@@ -1,13 +1,13 @@
 class_name TestDrive
-extends Spatial
+extends Node3D
 
 const RaceCar := preload("res://race_cars/race_car.tscn")
-var race_car: RaceCar = RaceCar.instance()
+var race_car: RaceCar = RaceCar.instantiate()
 
 
 func _input(event: InputEvent):
 	if event.is_action_pressed("ui_focus_next"):
-		print_debug(race_car.global_translation)
+		print(race_car.global_position)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -15,4 +15,4 @@ func _ready():
 
 
 func _on_body_entered(body, idx):
-	prints(body.get_instance_id(), idx)
+	print(body.get_instance_id(), idx)

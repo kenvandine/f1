@@ -1,21 +1,21 @@
 extends Node
 
-const ICON_POLAND: Texture = preload("res://assets/icons/poland-96.png")
-const ICON_CHINA: Texture = preload("res://assets/icons/china-96.png")
-const ICON_MEXICO: Texture = preload("res://assets/icons/mexico-96.png")
-const ICON_BAHRAIN: Texture = preload("res://assets/icons/bahrain-96.png")
+const ICON_POLAND: Texture2D = preload("res://assets/icons/poland-96.png")
+const ICON_CHINA: Texture2D = preload("res://assets/icons/china-96.png")
+const ICON_MEXICO: Texture2D = preload("res://assets/icons/mexico-96.png")
+const ICON_BAHRAIN: Texture2D = preload("res://assets/icons/bahrain-96.png")
 
-const ICON_RACE_CAR_GREEN: Texture = preload("res://assets/icons/race_car_green.png")
-const ICON_RACE_CAR_ORANGE: Texture = preload("res://assets/icons/race_car_orange.png")
-const ICON_RACE_CAR_RED: Texture = preload("res://assets/icons/race_car_red.png")
-const ICON_RACE_CAR_WHITE: Texture = preload("res://assets/icons/race_car_white.png")
+const ICON_RACE_CAR_GREEN: Texture2D = preload("res://assets/icons/race_car_green.png")
+const ICON_RACE_CAR_ORANGE: Texture2D = preload("res://assets/icons/race_car_orange.png")
+const ICON_RACE_CAR_RED: Texture2D = preload("res://assets/icons/race_car_red.png")
+const ICON_RACE_CAR_WHITE: Texture2D = preload("res://assets/icons/race_car_white.png")
 
-const ICON_MODE_TIME: Texture = preload("res://assets/icons/mode_time.png")
-const ICON_MODE_RACING: Texture = preload("res://assets/icons/mode_racing.png")
-const ICON_MODE_MULTIPLAYER: Texture = preload("res://assets/icons/mode_multiplayer.png")
+const ICON_MODE_TIME: Texture2D = preload("res://assets/icons/mode_time.png")
+const ICON_MODE_RACING: Texture2D = preload("res://assets/icons/mode_racing.png")
+const ICON_MODE_MULTIPLAYER: Texture2D = preload("res://assets/icons/mode_multiplayer.png")
 
 # world physics
-var default_gravity: float = -(ProjectSettings.get_setting("physics/3d/default_gravity") as float)
+var default_gravity: float = -float(ProjectSettings.get_setting("physics/3d/default_gravity"))
 
 enum Mode {
 	TIME = 0,
@@ -26,7 +26,7 @@ var game_play_mode = null
 
 var race_car_registry: Dictionary = {}
 var my_race_car_idx: int = 0
-var my_unique_id: String = OS.get_unique_id()
+var my_unique_id: String = OS.get_unique_id().hex_encode_to_string()
 
 # race car icons
 const RACE_CAR_ICONS_SMALL: Array = [
@@ -35,7 +35,7 @@ const RACE_CAR_ICONS_SMALL: Array = [
 	preload("res://assets/icons/race_car_red_small.png"),
 	preload("res://assets/icons/race_car_white_small.png")
 ]
-func my_race_car_icon() -> Texture:
+func my_race_car_icon() -> Texture2D:
 	return RACE_CAR_ICONS_SMALL[my_race_car_idx]
 
 # race car bodies
