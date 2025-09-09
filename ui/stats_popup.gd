@@ -3,21 +3,21 @@ extends PopupDialog
 
 const Main: PackedScene = preload("res://main.tscn")
 
-onready var _result_containers: Array = [
+@onready var _result_containers: Array = [
 	$VBoxContainer/ResultsContainer/VBoxContainer/P1Container,
 	$VBoxContainer/ResultsContainer/VBoxContainer/P2Container,
 	$VBoxContainer/ResultsContainer/VBoxContainer/P3Container,
 	$VBoxContainer/ResultsContainer/VBoxContainer/P4Container
 ]
 
-var _icon: Texture = null
+var _icon: Texture2D = null
 
 # Array [
-# 	{ "icon" => Texture, "label" => String, "total" => [ float, float, float ], "disqualified" => bool }
+# 	{ "icon" => Texture2D, "label" => String, "total" => [ float, float, float ], "disqualified" => bool }
 # ]
 var _results: Array = []
 
-func init(icon: Texture, results: Array):
+func init(icon: Texture2D, results: Array):
 	self._icon = icon
 	self._results = results
 
@@ -31,9 +31,6 @@ func _ready():
 
 
 func _set_result(p: int, r: Dictionary):
-	assert(r.icon != null, "icon is null")
-	assert(r.label != null, "label is null")
-	assert(r.total != null, "total is null")
 	var container := self._result_containers[p] as HBoxContainer
 	container.get_node("Icon").texture = r.icon
 	container.get_node("Label").text = r.label
@@ -45,5 +42,4 @@ func _set_result(p: int, r: Dictionary):
 
 
 func _on_home_pressed():
-	var err := get_tree().change_scene_to(Main)
-	assert(err == OK, "change_scene_to error %d" % err)
+	get_tree().change_scene_to_packed(Main)

@@ -6,13 +6,17 @@ var _laps_count: int = 0
 var _penalty: float
 
 # current road index
-var _road_idx: int = 0 setget ,current_road_idx
+var _road_idx: int = 0
+func current_road_idx() -> int:
+	return _road_idx
 
 # next road index
 var _next_road_idx: int = 1
 
 # current lap index
-var _lap_idx: int = 0 setget ,lap_idx
+var _lap_idx: int = 0
+func lap_idx() -> int:
+	return _lap_idx
 
 # lap elapsed_times in seconds
 var _laps: Array = []
@@ -55,17 +59,10 @@ func set_time_elapsed(road_idx: int, time_elapsed: float):
 	if self._road_idx == 0:
 		self._lap_idx += 1
 
-func current_road_idx() -> int:
-	return _road_idx
-
-func lap_idx() -> int:
-	return _lap_idx
-
 func finished() -> bool:
 	return (self._lap_idx >= self._laps_count)
 
 func lap(idx: int) -> Array:
-	assert(idx >= 0, "index out of range")
 	var t: float = self._laps[idx] if idx == 0 else self._laps[idx] - self._laps[idx-1]
 	return [
 		t,
@@ -91,7 +88,7 @@ func approx_total() -> Array:
 			t[0] = self._laps[i]
 		t[1] += self._penalties[i]
 
-	# print_debug("\nlaps:", _laps, "\tt:", t)
+	# print("\nlaps:", _laps, "\tt:", t)
 	if self._lap_idx < self._laps_count:
 		var n: int = self._roads_count - self._road_idx
 		t[0] += n * self._road_avg_max
@@ -99,5 +96,5 @@ func approx_total() -> Array:
 		if n > 0:
 			t[0] += n * self._roads_count * self._road_avg_max
 	t[2] = t[0] + t[1]
-	# print_debug("\tavg:", _road_avg_max, "\tt:", t)
+	# print("\tavg:", _road_avg_max, "\tt:", t)
 	return t

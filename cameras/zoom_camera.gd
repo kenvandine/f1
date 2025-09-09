@@ -1,13 +1,13 @@
 class_name ZoomCamera
-extends Camera
+extends Camera3D
 
 signal camera_position_set
 
-export(float, 0.1, 1.0) var lerp_speed = 0.50
-export(float, 1.1, 2.0) var max_lerp_speed = 1.5
-export(float, 1.0e-5, 1.0e-2) var y_epsilon = 1.0e-3
+@export_range(0.1, 1.0) var lerp_speed = 0.50
+@export_range(1.1, 2.0) var max_lerp_speed = 1.5
+@export_range(1.0e-5, 1.0e-2) var y_epsilon = 1.0e-3
 
-var position: Position3D = null
+var position: Node3D = null
 var _is_equal: bool = false
 
 func _physics_process(delta: float):
@@ -21,4 +21,3 @@ func _physics_process(delta: float):
 	self._is_equal = global_transform.basis.is_equal_approx(self.position.global_transform.basis)
 	if self._is_equal:
 		emit_signal("camera_position_set")
-

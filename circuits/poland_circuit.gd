@@ -4,8 +4,8 @@ extends Circuit
 const ROADS_COUNT: int = 31
 const ROAD_START_INDEX: int = 0
 
-export(int) var LAPS_COUNT = Global.laps_count as int
-export(float) var PENALTY = 5.0 # penalty in seconds
+@export var LAPS_COUNT = Global.laps_count
+@export var PENALTY = 5.0 # penalty in seconds
 
 func _init():
 	icon = Global.ICON_POLAND
@@ -20,13 +20,13 @@ func _ready():
 	zoom_camera = $ZoomCamera
 	chase_camera = $ChaseCamera
 	road_start = $RoadStart
-	get_path_direction = funcref(self, "get_path_direction")
+	get_path_direction = Callable(self, "get_path_direction")
 	_circuit_ready()
 
 
 func get_path_direction(id: int, pos: Vector3, default: Vector3) -> Vector3:
-	var path: Path = null
-	var path_follow: PathFollow = null
+	var path: Path3D = null
+	var path_follow: PathFollow3D = null
 
 	var stats: Stats = race_cars[race_cars_idx[id]].stats
 	var idx = stats.current_road_idx()
@@ -42,6 +42,5 @@ func get_path_direction(id: int, pos: Vector3, default: Vector3) -> Vector3:
 	else:
 		return default
 
-	assert(path != null and path_follow != null, "path is null")
-	path_follow.offset = path.curve.get_closest_offset(pos)
+	path_follow.progress = path.curve.get_closest_offset(pos)
 	return path_follow.transform.basis.z
