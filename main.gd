@@ -90,7 +90,7 @@ func _on_mode_button_pressed(selected: bool, idx: int):
 				_set_mode_buttons_disabled()
 				Global.game_play_mode = idx
 #				self.root.call_deferred("change_scene_to", curcuit_scene)
-				var err := self.root.change_scene_to(self.loaded_curcuit_scene)
+				var err: Error = self.root.change_scene_to(self.loaded_curcuit_scene)
 				assert(err == OK, "node.change_scene_to error %d" % err)
 			Global.Mode.MULTIPLAYER:
 				print_debug("MULTIPLAYER not implemented, yet")
