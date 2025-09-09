@@ -5,8 +5,8 @@ signal on_pressed(selected)
 
 const BG_COLOR: Color = Color("#525969")
 
-onready var button: TextureButton = $TextureButton
-onready var progress: TextureProgress = $TextureProgress
+@onready var button: TextureButton = $TextureButton
+@onready var progress: TextureProgress = $TextureProgress
 
 func init(icon: Texture, disabled: bool = false):
 	button.texture_normal = icon

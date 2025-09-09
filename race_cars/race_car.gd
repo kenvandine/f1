@@ -130,7 +130,6 @@ func _init():
 	self.get_steering_angle = Callable(self, "_get_gravity_steering_angle") \
 		if DisplayServer.is_touchscreen_available()  \
 		else Callable(self, "_get_action_steering_angle")
-	return self
 
 # called when the node enters the scene tree for the first time.
 func _ready():

@@ -26,7 +26,7 @@ const LIGHTS_MESH_SURFACE: int = 2
 var _lights_timer_ticks: int = 0
 
 func _ready():
-	lights_mesh.set_surface_material(LIGHTS_MESH_SURFACE, lights_materials[RoadStart.GLASS])
+	lights_mesh.set_surface_override_material(LIGHTS_MESH_SURFACE, lights_materials[RoadStart.GLASS])
 
 
 func _on_lights_timer_timeout():
@@ -35,7 +35,7 @@ func _on_lights_timer_timeout():
 		RoadStart.GLASS:
 			pass
 		RoadStart.RED, RoadStart.YELLOW, RoadStart.GREEN:
-			lights_mesh.set_surface_material(LIGHTS_MESH_SURFACE, lights_materials[_lights_timer_ticks])
+			lights_mesh.set_surface_override_material(LIGHTS_MESH_SURFACE, lights_materials[_lights_timer_ticks])
 			lights_sound.play()
 		_:
 			lights_timer.stop()
