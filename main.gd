@@ -127,7 +127,7 @@ func _load_circuit() -> PackedScene:
 	var loader := ResourceLoader.load_interactive(Global.CIRCUITS[self.selected_cicruit_idx], "PackedScene")
 	self.circuit_buttons[self.selected_cicruit_idx].set_max(loader.get_stage_count())
 	while scene == null:
-		var err := loader.poll()
+		var err: Error = loader.poll()
 		if err == ERR_FILE_EOF:
 			self.circuit_buttons[self.selected_cicruit_idx].set_progress(loader.get_stage_count())
 			scene = loader.get_resource() as PackedScene

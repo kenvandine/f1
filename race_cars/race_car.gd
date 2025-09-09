@@ -133,7 +133,7 @@ func _init():
 
 # called when the node enters the scene tree for the first time.
 func _ready():
-	if self.get_path_direction != null:
+	if self.get_path_direction.is_valid():
 		set_ctx_rays()
 	else:
 		play_engine_sound(ENGINE)
@@ -180,7 +180,7 @@ func _input(event: InputEvent):
 		play_engine_sound(BRAKING)
 
 func _input_process():
-	if self.get_path_direction != null:
+	if self.get_path_direction.is_valid():
 		self._steering_angle = _get_ctx_steering_angle()
 		return
 

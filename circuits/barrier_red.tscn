@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dix1k5w5s5w68"]
 
-[ext_resource type="ArrayMesh" uid="uid://dix1k5w5s5w67" path="res://circuits/barrier_red.tres" id=1]
+[ext_resource type="ArrayMesh" uid="uid://dix1k5w5s5w6d" path="res://circuits/barrier_red.tres" id=1]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_1"]
 points = PackedVector3Array(0.25, 0.1312, -0.0299313, 0.25, 0.1312, -0.0930808, 0, 0.1312, -0.0299313, 0.25, 0.0245936, -7.45058e-09, 0.25, 0.0245936, -0.123, 0, 0.1312, -0.0930808, 0, 0.0245936, -7.45058e-09, 0.25, 0, -7.45058e-09, 0.25, 0, -0.123, 0, 0.0245936, -0.123, 0, 0, -7.45058e-09, 0, 0, -0.123)
