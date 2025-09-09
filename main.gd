@@ -45,15 +45,22 @@ func _ready():
 	$Container/ModeContainer/RacingButton.init(Global.ICON_MODE_RACING)
 	$Container/ModeContainer/MultiplayerButton.init(Global.ICON_MODE_MULTIPLAYER, true)
 
+	for i in range(race_car_buttons.size()):
+		race_car_buttons[i].on_pressed.connect(_on_race_car_button_pressed.bind(i))
+	for i in range(circuit_buttons.size()):
+		circuit_buttons[i].on_pressed.connect(_on_circuit_button_pressed.bind(i))
+	for i in range(mode_buttons.size()):
+		mode_buttons[i].on_pressed.connect(_on_mode_button_pressed.bind(i))
 
-async func _on_race_car_button_pressed(selected: bool, idx: int):
+
+func _on_race_car_button_pressed(selected: bool, idx: int):
 	if selected:
 		if self.selected_race_car_idx != null:
 			self.race_car_buttons[self.selected_race_car_idx].reset()
 		self.selected_race_car_idx = idx
 	elif idx == self.selected_race_car_idx:
 		self.selected_race_car_idx = null
-	await _try_load_circuit()
+	_try_load_circuit()
 
 
 func _set_race_car_buttons_disabled():
@@ -61,14 +68,14 @@ func _set_race_car_buttons_disabled():
 		btn.set_disabled(true)
 
 
-async func _on_circuit_button_pressed(selected: bool, idx: int):
+func _on_circuit_button_pressed(selected: bool, idx: int):
 	if selected:
 		if self.selected_cicruit_idx != null:
 			self.circuit_buttons[self.selected_cicruit_idx].reset()
 		self.selected_cicruit_idx = idx
 	elif idx == self.selected_cicruit_idx:
 		self.selected_cicruit_idx = null
-	await _try_load_circuit()
+	_try_load_circuit()
 
 
 func _set_circuit_buttons_disabled():
@@ -98,14 +105,14 @@ func _set_mode_buttons_visible():
 	$Container/ModeContainer.visible = true
 
 
-async func _try_load_circuit():
+func _try_load_circuit():
 	if self.selected_race_car_idx == null or self.selected_cicruit_idx == null:
 		return
 	Global.my_race_car_idx = selected_race_car_idx
 	var circuit = Global.CIRCUITS[selected_cicruit_idx]
 	if circuit == null:
 		return
-	self.loaded_curcuit_scene = await _load_circuit()
+	self.loaded_curcuit_scene = _load_circuit()
 	assert(self.loaded_curcuit_scene != null, "circuit scene is not loaded")
 	_set_mode_buttons_visible()
 

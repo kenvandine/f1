@@ -80,8 +80,8 @@ var _is_drifting: bool = false
 var _audio_stream_idx: int = ENGINE
 var _camera_position_idx: int = 0
 
-var get_steering_angle: Callable = null
-var get_path_direction: Callable = null
+var get_steering_angle: Callable = Callable()
+var get_path_direction: Callable = Callable()
 
 
 # context behaviors
