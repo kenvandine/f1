@@ -105,7 +105,7 @@ func _set_mode_buttons_visible():
 	$Container/ModeContainer.visible = true
 
 
-func _try_load_circuit():
+async func _try_load_circuit():
 	if self.selected_race_car_idx == null or self.selected_cicruit_idx == null:
 		return
 	Global.my_race_car_idx = selected_race_car_idx
